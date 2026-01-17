@@ -8,7 +8,7 @@
 </head>
 <body class="light">
 
-  <!-- Top-center theme switch -->
+  <!-- THEME BUTTON -->
   <div class="theme-container">
     <button id="themeBtn">🌓 Change Theme</button>
   </div>
@@ -19,7 +19,7 @@
     <div class="card">
       <div class="card-header">
         <h2>Daily Checklist</h2>
-        <button id="generatePlanBtn">🛠 Generate Plan</button>
+        <button id="openModalBtn">🛠 Generate Plan</button>
       </div>
       <ul id="checklist">
         <li><input type="checkbox" data-task="Brush teeth"> Brush teeth</li>
@@ -42,19 +42,60 @@
       </div>
     </div>
 
-    <!-- ACHIEVEMENT BADGES -->
+    <!-- BADGES -->
     <div class="card">
       <h2>Achievement Badges 🏅</h2>
       <div id="badges"></div>
     </div>
 
-    <!-- DAILY INSPIRATION -->
+    <!-- INSPIRATION -->
     <div class="card">
       <h2>Daily Inspiration 🍲</h2>
       <p id="chickenSoup"></p>
       <button id="newQuoteBtn">🔄 New Quote</button>
     </div>
+  </div>
 
+  <!-- 🔥 MODAL -->
+  <div id="planModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Personalize Your Hygiene Plan</h3>
+
+      <label>Are you active during the day?</label>
+      <select id="qActive">
+        <option value="no">Not really</option>
+        <option value="yes">Yes</option>
+      </select>
+
+      <label>Do you exercise?</label>
+      <select id="qExercise">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+
+      <label>Do you sweat a lot?</label>
+      <select id="qSweat">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+
+      <label>Do you go outdoors often?</label>
+      <select id="qOutdoor">
+        <option value="no">Rarely</option>
+        <option value="yes">Often</option>
+      </select>
+
+      <label>Do you wear makeup?</label>
+      <select id="qMakeup">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+
+      <div class="modal-buttons">
+        <button id="generatePlanConfirm">✅ Generate</button>
+        <button id="closeModalBtn">❌ Cancel</button>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
