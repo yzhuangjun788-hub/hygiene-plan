@@ -165,3 +165,47 @@ document.getElementById("themeBtn").onclick = () => {
 updateXPUI();
 renderCalendar();
 renderBadges();
+
+/* ---------- GENERATE PLAN MODAL (RESTORED) ---------- */
+const modal = document.getElementById("planModal");
+const openModalBtn = document.getElementById("openModalBtn");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const confirmBtn = document.getElementById("generatePlanConfirm");
+
+// Open modal
+openModalBtn.onclick = () => {
+  modal.classList.remove("hidden");
+};
+
+// Close modal
+closeModalBtn.onclick = () => {
+  modal.classList.add("hidden");
+};
+
+// Generate plan
+confirmBtn.onclick = () => {
+  const active = document.getElementById("qActive").value;
+  const exercise = document.getElementById("qExercise").value;
+  const sweat = document.getElementById("qSweat").value;
+  const outdoor = document.getElementById("qOutdoor").value;
+  const makeup = document.getElementById("qMakeup").value;
+
+  const tasks = ["Brush teeth", "Wash hands"];
+
+  if (active === "yes") tasks.push("Change clothes");
+  if (exercise === "yes") tasks.push("Shower after exercise");
+  if (sweat === "yes") tasks.push("Extra shower");
+  if (outdoor === "yes") tasks.push("Clean face after outdoor");
+  if (makeup === "yes") tasks.push("Remove makeup");
+
+  tasks.push("Skincare");
+
+  checklist.innerHTML = "";
+  tasks.forEach(task => {
+    const li = document.createElement("li");
+    li.innerHTML = `<input type="checkbox" data-task="${task}"> ${task}`;
+    checklist.appendChild(li);
+  });
+
+  modal.classList.add("hidden");
+};
