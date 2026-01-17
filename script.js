@@ -1,155 +1,187 @@
-// ---------- STATE ----------
+// ----------------
+// STATE
+// ----------------
 let state = JSON.parse(localStorage.getItem("state")) || {
-  xp: 0,
-  level: 1,
-  habits: [],
-  days: {},
-  customGoals: []
+  today: [],
+  history: {},  // format: { '2026-01-17': [{name:'Shower', done:true}, ...] }
+  badges: []
 };
 
+// Default hygiene tasks
 const BASE_HABITS = [
-  { name: "Shower 🚿", xp: 20 },
-  { name: "Brush Teeth 🦷", xp: 15 },
-  { name: "Deodorant 🧴", xp: 10 }
+  {name: "Shower", done: false},
+  {name: "Brush Teeth", done: false},
+  {name: "Deodorant", done: false}
 ];
 
-// ---------- INIT ----------
+// ----------------
+// INITIALIZATION
+// ----------------
 function init() {
-  if (state.habits.length === 0) {
-    state.habits = [...BASE_HABITS];
+  if (state.today.length === 0) {
+    state.today = [...BASE_HABITS];
   }
-  render();
+  renderPlan();
+  renderCalendar();
+  renderBadges();
 }
 init();
 
-// ---------- RENDER ----------
-function render() {
-  renderHabits();
-  renderXP();
-  renderCalendar();
-  renderPlan();
-  save();
-}
-
-function renderHabits() {
-  habitList.innerHTML = "";
-  state.habits.forEach((h, i) => {
-    const div = document.createElement("div");
-    div.className = "habit";
-    div.innerHTML = `
-      <span>${h.name}</span>
-      <button onclick="completeHabit(${i})">+${h.xp} XP</button>
-    `;
-    habitList.appendChild(div);
-  });
-}
-
-function renderXP() {
-  const levelXP = state.level * 100;
-  const pct = Math.min(100, (state.xp / levelXP) * 100);
-  xpFill.style.width = pct + "%";
-  xpText.innerText = `XP: ${state.xp} / ${levelXP}`;
-  levelText.innerText = `Level ${state.level}`;
-}
-
-function renderCalendar() {
-  calendar.innerHTML = "";
-  const today = new Date();
-  const todayKey = today.toISOString().slice(0,10);
-
-  for (let i = 1; i <= 30; i++) {
-    const key = todayKey.slice(0,8) + String(i).padStart(2,"0");
-    const div = document.createElement("div");
-    div.className = "day";
-
-    if (state.days[key]) div.classList.add("good");
-    if (i === today.getDate()) div.classList.add("today");
-
-    div.innerText = i + (state.days[key] ? "🔥" : "");
-    calendar.appendChild(div);
-  }
-}
+// ----------------
+// TODAY'S PLAN
+// ----------------
+const planList = document.getElementById("planList");
+const planSettings = document.getElementById("planSettings");
+const popup = document.getElementById("popup");
+const closePopup = document.getElementById("closePopup");
+const generatePlanBtn = document.getElementById("generatePlan");
 
 function renderPlan() {
   planList.innerHTML = "";
-  [...state.habits, ...state.customGoals].forEach(h => {
-    const li = document.createElement("div");
-    li.innerText = h.name || h;
+  state.today.forEach((task, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<input type="checkbox" ${task.done ? 'checked' : ''}> ${task.name}`;
+    li.querySelector("input").addEventListener("change", () => {
+      task.done = !task.done;
+      saveState();
+      renderCalendar(); // update calendar highlight
+    });
     planList.appendChild(li);
   });
 }
 
-// ---------- ACTIONS ----------
-function completeHabit(i) {
-  state.xp += state.habits[i].xp;
-  checkLevelUp();
-  render();
-}
-
-function completeDay() {
-  const key = new Date().toISOString().slice(0,10);
-  state.days[key] = true;
-  render();
-}
-
-function addCustomGoal() {
-  if (customGoal.value.trim()) {
-    state.customGoals.push(customGoal.value);
-    customGoal.value = "";
-    render();
-  }
-}
-
-function checkLevelUp() {
-  if (state.xp >= state.level * 100) {
-    state.level++;
-  }
-}
-
-function save() {
-  localStorage.setItem("state", JSON.stringify(state));
-}
-
-// ---------- QUEST ----------
-const quests = [
-  "Complete 3 habits",
-  "Shower before noon",
-  "Reflect today"
-];
-dailyQuest.innerText = quests[Math.floor(Math.random()*quests.length)];
-
-function completeQuest() {
-  state.xp += 30;
-  checkLevelUp();
-  render();
-}
-
-// =========================
-// LIGHT / DARK MODE TOGGLE
-// =========================
-const toggleThemeBtn = document.getElementById("toggleTheme");
-
-// Set default theme
-document.body.dataset.theme = "dark";
-
-toggleThemeBtn.addEventListener("click", () => {
-  const isDark = document.body.dataset.theme === "dark";
-  
-  if (isDark) {
-    document.body.dataset.theme = "light";
-    document.documentElement.style.setProperty("--bg-color", "#f9fafb");
-    document.documentElement.style.setProperty("--bg-gradient", "linear-gradient(180deg, #ffffff, #e0e0e0)");
-    document.documentElement.style.setProperty("--text-color", "#111827");
-    document.documentElement.style.setProperty("--card-bg", "#ffffff");
-    document.documentElement.style.setProperty("--habit-bg", "#e5e7eb");
-    document.documentElement.style.setProperty("--habit-done-bg", "#a7f3d0");
-  } else {
-    document.body.dataset.theme = "dark";
-    document.documentElement.style.setProperty("--bg-color", "#1f2933");
-    document.documentElement.style.setProperty("--bg-gradient", "linear-gradient(180deg, #1f2933, #111827)");
-    document.documentElement.style.setProperty("--text-color", "#f9fafb");
-    document.documentElement.style.setProperty("--card-bg", "#1f2937");
-    document.documentElement.style.setProperty("--habit-bg", "#374151");
-    document.documentElement.style.setProperty("--habit-done-bg", "#065f46");
-  }
+// Open popup for personal questions
+planSettings.addEventListener("click", () => {
+  popup.classList.remove("hidden");
 });
+
+closePopup.addEventListener("click", () => {
+  popup.classList.add("hidden");
+});
+
+// Generate custom plan based on questions
+generatePlanBtn.addEventListener("click", () => {
+  const activity = document.getElementById("activity").value;
+  const sweat = document.getElementById("sweat").value;
+  const skincare = document.getElementById("skincare").value;
+
+  let newPlan = [
+    {name: "Brush Teeth", done:false},
+    {name: "Shower", done:false},
+    {name: "Deodorant", done:false}
+  ];
+
+  if (activity === "high" || sweat === "yes") newPlan.push({name:"Extra Shower", done:false});
+  if (skincare === "yes") newPlan.push({name:"Face Care", done:false});
+
+  state.today = newPlan;
+  popup.classList.add("hidden");
+  saveState();
+  renderPlan();
+  renderCalendar();
+});
+
+// ----------------
+// CALENDAR
+// ----------------
+const calendar = document.getElementById("calendar");
+const dayPopup = document.getElementById("dayPopup");
+const dayTasks = document.getElementById("dayTasks");
+const dayTitle = document.getElementById("dayTitle");
+const closeDayPopup = document.getElementById("closeDayPopup");
+
+function renderCalendar() {
+  const today = new Date();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+  const lastDate = new Date(year, month+1,0).getDate();
+
+  calendar.innerHTML = "";
+
+  // Header
+  const headerRow = document.createElement("tr");
+  ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d=>{
+    const th = document.createElement("th");
+    th.innerText = d;
+    headerRow.appendChild(th);
+  });
+  calendar.appendChild(headerRow);
+
+  let row = document.createElement("tr");
+  for(let i=0;i<firstDay;i++){
+    row.appendChild(document.createElement("td"));
+  }
+
+  for(let d=1;d<=lastDate;d++){
+    if(row.children.length===7){
+      calendar.appendChild(row);
+      row = document.createElement("tr");
+    }
+
+    const td = document.createElement("td");
+    td.innerText = d;
+    const dateKey = `${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+
+    if(state.history[dateKey] && state.history[dateKey].every(t=>t.done)){
+      td.classList.add("completed");
+    }
+
+    td.addEventListener("click",()=>{
+      openDayPopup(dateKey);
+    });
+
+    row.appendChild(td);
+  }
+
+  while(row.children.length<7){
+    row.appendChild(document.createElement("td"));
+  }
+  calendar.appendChild(row);
+}
+
+function openDayPopup(dateKey){
+  dayPopup.classList.remove("hidden");
+  dayTitle.innerText = `Tasks for ${dateKey}`;
+  dayTasks.innerHTML = "";
+  const tasks = state.history[dateKey] || [];
+  tasks.forEach(t=>{
+    const li = document.createElement("li");
+    li.innerText = `${t.done ? "✅" : "❌"} ${t.name}`;
+    dayTasks.appendChild(li);
+  });
+}
+
+closeDayPopup.addEventListener("click",()=>{
+  dayPopup.classList.add("hidden");
+});
+
+// Save today tasks to history at end of day (for demo, we'll save on checkbox change)
+function saveHistory(){
+  const todayKey = new Date().toISOString().slice(0,10);
+  state.history[todayKey] = state.today.map(t=>({name:t.name,done:t.done}));
+}
+
+// ----------------
+// BADGES
+// ----------------
+const badgesDiv = document.getElementById("badges");
+
+function renderBadges(){
+  badgesDiv.innerHTML = "";
+  state.badges.forEach(b=>{
+    const div = document.createElement("div");
+    div.className="badge";
+    div.innerText = b;
+    badgesDiv.appendChild(div);
+  });
+}
+
+// ----------------
+// SAVE STATE
+// ----------------
+function saveState(){
+  saveHistory();
+  localStorage.setItem("state",JSON.stringify(state));
+  renderBadges();
+}
