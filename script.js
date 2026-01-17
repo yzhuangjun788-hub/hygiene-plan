@@ -1,5 +1,6 @@
-// --- Storage for completed days and badges ---
+// --- Storage for completed days, tasks, and badges ---
 let completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+let dayTasks = JSON.parse(localStorage.getItem('dayTasks') || '{}');
 let earnedBadges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
 
 // --- Checklist logic ---
@@ -7,21 +8,31 @@ const checklist = document.getElementById('checklist');
 
 checklist.addEventListener('change', () => {
   const allDone = Array.from(checklist.querySelectorAll('input')).every(cb => cb.checked);
-  if (allDone) {
-    const today = new Date().toISOString().split('T')[0];
-    if (!completedDays.includes(today)) {
-      completedDays.push(today);
-      localStorage.setItem('completedDays', JSON.stringify(completedDays));
-      checkBadges();
-      renderCalendar();
-      renderBadges();
-    }
+  const today = new Date().toISOString().split('T')[0];
+
+  // Save tasks for today
+  const tasks = Array.from(checklist.querySelectorAll('input')).map(cb => ({
+    name: cb.dataset.task,
+    done: cb.checked
+  }));
+  dayTasks[today] = tasks;
+  localStorage.setItem('dayTasks', JSON.stringify(dayTasks));
+
+  if (allDone && !completedDays.includes(today)) {
+    completedDays.push(today);
+    localStorage.setItem('completedDays', JSON.stringify(completedDays));
+    checkBadges();
   }
+
+  renderCalendar();
+  renderBadges();
 });
 
 // --- Calendar rendering ---
+const calendar = document.getElementById('calendar');
+const dayDetails = document.getElementById('dayDetails');
+
 function renderCalendar() {
-  const calendar = document.getElementById('calendar');
   calendar.innerHTML = '';
   const now = new Date();
   const year = now.getFullYear();
@@ -34,6 +45,19 @@ function renderCalendar() {
     div.textContent = i;
     div.className = 'calendar-day';
     if (completedDays.includes(dayDate)) div.classList.add('completed');
+
+    // Click to show tasks
+    div.addEventListener('click', () => {
+      const tasks = dayTasks[dayDate] || [];
+      if (tasks.length === 0) {
+        dayDetails.textContent = "No data for this day.";
+      } else {
+        dayDetails.innerHTML = tasks.map(t => 
+          `${t.done ? "✅" : "❌"} ${t.name}`
+        ).join('<br>');
+      }
+    });
+
     calendar.appendChild(div);
   }
 }
@@ -66,20 +90,20 @@ function renderBadges() {
   });
 }
 
-// --- Generate new hygiene plan ---
+// --- Generate new hygiene plan (multiple choice) ---
 const generateBtn = document.getElementById('generatePlanBtn');
 generateBtn.addEventListener('click', () => {
-  const wakeUp = prompt("What time do you usually wake up? (e.g., 7:00)");
-  const sleep = prompt("What time do you usually go to sleep? (e.g., 23:00)");
-  const exercise = prompt("Do you exercise daily? (yes/no)");
-  const workFromHome = prompt("Do you work from home? (yes/no)");
+  // Multiple choice questions
+  const wakeUp = prompt("Choose your wake-up time:\n1) 6:00  2) 7:00  3) 8:00");
+  const sleep = prompt("Choose your sleep time:\n1) 22:00  2) 23:00  3) 24:00");
+  const exercise = prompt("Do you exercise daily?\n1) Yes  2) No");
+  const workFromHome = prompt("Do you work from home?\n1) Yes  2) No");
 
   const newTasks = ["Brush teeth", "Wash face"];
-  if (exercise.toLowerCase() === 'yes') newTasks.push("Shower after exercise");
-  if (workFromHome.toLowerCase() === 'no') newTasks.push("Change clothes for work");
+  if (exercise === '1') newTasks.push("Shower after exercise");
+  if (workFromHome === '2') newTasks.push("Change clothes for work");
   newTasks.push("Skincare");
 
-  // Update checklist HTML
   checklist.innerHTML = '';
   newTasks.forEach(task => {
     const li = document.createElement('li');
@@ -109,8 +133,6 @@ function showRandomQuote() {
 }
 
 newQuoteBtn.addEventListener('click', showRandomQuote);
-
-// Show a quote on load
 showRandomQuote();
 
 // --- Initial render ---
