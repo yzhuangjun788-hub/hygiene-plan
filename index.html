@@ -1,39 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Hygiene Tracker</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Hygiene Planner</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <!-- Theme switcher button top-center -->
+<body class="light">
+
+  <!-- Top-center theme switch -->
   <div class="theme-container">
-    <button id="themeBtn" class="theme-btn">🌓 Change Theme</button>
+    <button id="themeBtn">🌓 Change Theme</button>
   </div>
 
   <div class="grid-container">
 
-    <!-- Daily Checklist -->
+    <!-- DAILY CHECKLIST -->
     <div class="card">
       <div class="card-header">
         <h2>Daily Checklist</h2>
-        <button id="generatePlanBtn" class="generate-btn">🛠 Generate Plan</button>
+        <button id="generatePlanBtn">🛠 Generate Plan</button>
       </div>
       <ul id="checklist">
         <li><input type="checkbox" data-task="Brush teeth"> Brush teeth</li>
         <li><input type="checkbox" data-task="Shower"> Shower</li>
         <li><input type="checkbox" data-task="Wash hands"> Wash hands</li>
-        <li><input type="checkbox" data-task="Comb hair"> Comb hair</li>
         <li><input type="checkbox" data-task="Skincare"> Skincare</li>
       </ul>
     </div>
 
-    <!-- Streak Calendar -->
+    <!-- STREAK CALENDAR -->
     <div class="card">
       <h2>Streak Calendar</h2>
+      <div class="weekday-row">
+        <span>Sun</span><span>Mon</span><span>Tue</span>
+        <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+      </div>
       <div id="calendar"></div>
-      <div id="dayDetails" class="day-details">Click a day to see details</div>
+      <div id="dayDetails" class="day-details">
+        Click a date to see details
+      </div>
     </div>
 
-    <!
+    <!-- ACHIEVEMENT BADGES -->
+    <div class="card">
+      <h2>Achievement Badges 🏅</h2>
+      <div id="badges"></div>
+    </div>
+
+    <!-- DAILY INSPIRATION -->
+    <div class="card">
+      <h2>Daily Inspiration 🍲</h2>
+      <p id="chickenSoup"></p>
+      <button id="newQuoteBtn">🔄 New Quote</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
