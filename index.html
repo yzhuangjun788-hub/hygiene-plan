@@ -2,76 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Personal Hygiene Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Hygiene Tracker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <h1>Personal Hygiene Tracker</h1>
 
-<div class="dashboard">
+    <!-- Checklist -->
+    <div class="card">
+      <h2>Daily Checklist</h2>
+      <ul id="checklist">
+        <li><input type="checkbox" data-task="Brush teeth"> Brush teeth</li>
+        <li><input type="checkbox" data-task="Shower"> Shower</li>
+        <li><input type="checkbox" data-task="Wash hands"> Wash hands</li>
+        <li><input type="checkbox" data-task="Comb hair"> Comb hair</li>
+        <li><input type="checkbox" data-task="Skincare"> Skincare</li>
+      </ul>
+    </div>
 
-  <!-- Today's Hygiene Plan -->
-  <div class="card" id="planCard">
-    <h2>
-      🧼 Today's Hygiene Plan
-      <button id="planSettings" title="Customize Plan">⚙️</button>
-    </h2>
-    <ul id="planList"></ul>
-  </div>
+    <!-- Calendar -->
+    <div class="card">
+      <h2>Streak Calendar</h2>
+      <div id="calendar"></div>
+    </div>
 
-  <!-- Streak Calendar -->
-  <div class="card" id="calendarCard">
-    <h2>🔥 Streak Calendar</h2>
-    <table id="calendar"></table>
-  </div>
-
-  <!-- Badges Board -->
-  <div class="card" id="badgeCard">
-    <h2>🏅 Badges Board</h2>
-    <div id="badges"></div>
-  </div>
-
-</div>
-
-<!-- Popup for Personal Questions -->
-<div id="popup" class="popup hidden">
-  <div class="popupContent">
-    <h3>Personal Hygiene Questions</h3>
-
-    <label>How active are you?</label>
-    <select id="activity">
-      <option value="low">Low</option>
-      <option value="medium">Medium</option>
-      <option value="high">High</option>
-    </select>
-
-    <label>Do you sweat a lot?</label>
-    <select id="sweat">
-      <option value="no">No</option>
-      <option value="yes">Yes</option>
-    </select>
-
-    <label>Do you want extra skincare?</label>
-    <select id="skincare">
-      <option value="no">No</option>
-      <option value="yes">Yes</option>
-    </select>
-
-    <div class="popupButtons">
-      <button id="generatePlan">Generate Plan</button>
-      <button id="closePopup">Cancel</button>
+    <!-- Badges -->
+    <div class="card">
+      <h2>Achievement Badges</h2>
+      <div id="badges"></div>
     </div>
   </div>
-</div>
 
-<!-- Popup for Day Details -->
-<div id="dayPopup" class="popup hidden">
-  <div class="popupContent">
-    <h3 id="dayTitle">Tasks for </h3>
-    <ul id="dayTasks"></ul>
-    <button id="closeDayPopup">Close</button>
-  </div>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
