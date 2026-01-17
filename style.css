@@ -1,115 +1,67 @@
-/* Basic Reset & Theme */
 body {
-  font-family: system-ui;
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
   margin: 0;
-  background: #f0f4f8;
-  color: #111827;
-}
-
-/* Dashboard Horizontal Layout */
-.dashboard {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-start;
-  height: 100vh;
-  padding: 16px;
-  box-sizing: border-box;
-}
-
-/* Card Styling */
-.card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
-  flex: 0 0 30%;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
-
-.card h2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Plan List */
-#planList, #dayTasks {
-  list-style: none;
   padding: 0;
-  margin: 0;
 }
 
-#planList li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
 }
 
-#planList input[type="checkbox"] {
-  margin-right: 8px;
-  transform: scale(1.2);
-}
-
-/* Popup Styling */
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}
-
-.popupContent {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  width: 300px;
-}
-
-.hidden {
-  display: none;
-}
-
-.popupButtons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
-}
-
-/* Calendar Styling */
-#calendar {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-#calendar th, #calendar td {
-  border: 1px solid #ccc;
-  padding: 8px;
+h1 {
   text-align: center;
-  width: 14%;
+  color: #333;
 }
 
-#calendar td.completed {
-  background: #4ade80;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
+.card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
 }
 
-/* Badges */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-day {
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #ddd;
+}
+
+.calendar-day.completed {
+  background-color: #4CAF50;
+  color: white;
+}
+
 #badges {
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
-  gap: 8px;
 }
 
 .badge {
-  background: #fde68a;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: gold;
+  color: white;
+  font-weight: bold;
+  text-align: center;
 }
