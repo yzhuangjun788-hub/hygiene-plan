@@ -7,6 +7,37 @@
 </head>
 <body>
 
+  <!-- Popup for Personal Questions -->
+<div id="popup" class="popup hidden">
+  <div class="popupContent">
+    <h3>Personal Hygiene Questions</h3>
+
+    <label>How active are you?</label>
+    <select id="activity">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+
+    <label>Do you sweat a lot?</label>
+    <select id="sweat">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <label>Do you want extra skincare?</label>
+    <select id="skincare">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <div class="popupButtons">
+      <button id="generatePlan">Generate Plan</button>
+      <button id="closePopup">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <div class="dashboard">
 
   <!-- Today's Hygiene Plan -->
