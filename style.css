@@ -1,4 +1,3 @@
-/* Basic page styling */
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f4f8;
@@ -11,7 +10,7 @@ h1, h2 {
   color: #333;
 }
 
-/* Grid layout: 2x2 */
+/* 2x2 grid layout */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -20,7 +19,7 @@ h1, h2 {
   padding: 20px;
 }
 
-/* Cards styling */
+/* Card styling */
 .card {
   background-color: white;
   padding: 15px;
@@ -60,11 +59,21 @@ li {
   text-align: center;
   border-radius: 5px;
   background-color: #ddd;
+  cursor: pointer;
 }
 
 .calendar-day.completed {
   background-color: #4CAF50;
   color: white;
+}
+
+/* Day details box */
+.day-details {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #eef;
+  border-radius: 5px;
+  min-height: 50px;
 }
 
 /* Badges styling */
@@ -83,7 +92,7 @@ li {
   text-align: center;
 }
 
-/* Generate Plan / Chicken Soup button */
+/* Generate buttons */
 .generate-btn {
   background-color: #007BFF;
   color: white;
