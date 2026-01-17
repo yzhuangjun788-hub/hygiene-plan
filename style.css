@@ -26,3 +26,18 @@
 .container::-webkit-scrollbar-track {
   background: #f0f4f8;
 }
+
+.generate-btn {
+  float: right;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.generate-btn:hover {
+  background-color: #0056b3;
+}
