@@ -136,12 +136,23 @@ showRandomQuote();
 
 // --- Theme switching ---
 const themeBtn = document.getElementById('themeBtn');
-let themes = ['light', 'dark', 'green'];
+const themes = ['light', 'dark', 'green'];
 let currentTheme = 0;
+
+// Load saved theme from localStorage
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme && themes.includes(savedTheme)) {
+  document.body.className = savedTheme;
+  currentTheme = themes.indexOf(savedTheme);
+} else {
+  document.body.className = 'light';
+}
 
 themeBtn.addEventListener('click', () => {
   currentTheme = (currentTheme + 1) % themes.length;
-  document.body.className = themes[currentTheme];
+  const theme = themes[currentTheme];
+  document.body.className = theme;
+  localStorage.setItem('theme', theme); // save choice
 });
 
 // --- Initial render ---
