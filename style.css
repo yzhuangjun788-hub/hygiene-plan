@@ -1,28 +1,67 @@
-/* Make container horizontal */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto; /* scroll if too wide */
-  padding: 20px;
-  max-width: 100vw;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
 }
 
-/* Keep cards rectangular */
+h1 {
+  text-align: center;
+  color: #333;
+}
+
 .card {
-  min-width: 300px; /* each card has a fixed width */
-  flex: 0 0 auto;   /* don’t shrink */
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
 }
 
-/* Optional: hide scrollbar for nicer look */
-.container::-webkit-scrollbar {
-  height: 8px;
+ul {
+  list-style: none;
+  padding-left: 0;
 }
 
-.container::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
+li {
+  margin-bottom: 10px;
 }
 
-.container::-webkit-scrollbar-track {
-  background: #f0f4f8;
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-day {
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #ddd;
+}
+
+.calendar-day.completed {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: gold;
+  color: white;
+  font-weight: bold;
+  text-align: center;
 }
