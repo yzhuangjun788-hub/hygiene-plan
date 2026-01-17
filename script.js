@@ -1,3 +1,20 @@
+/* ---------- XP SYSTEM ---------- */
+let xp = parseInt(localStorage.getItem("xp") || "0");
+let rewardedDays = JSON.parse(localStorage.getItem("rewardedDays") || "[]");
+
+const xpText = document.getElementById("xp");
+const levelText = document.getElementById("level");
+const xpFill = document.getElementById("xp-fill");
+
+function updateXPUI() {
+  const level = Math.floor(xp / 50) + 1;
+  const currentXP = xp % 50;
+
+  levelText.textContent = level;
+  xpText.textContent = currentXP;
+  xpFill.style.width = (currentXP / 50) * 100 + "%";
+}
+
 /* ---------- STORAGE ---------- */
 let completedDays = JSON.parse(localStorage.getItem("completedDays") || "[]");
 let dayTasks = JSON.parse(localStorage.getItem("dayTasks") || "{}");
