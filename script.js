@@ -46,7 +46,6 @@ function renderCalendar() {
     div.className = 'calendar-day';
     if (completedDays.includes(dayDate)) div.classList.add('completed');
 
-    // Click to show tasks
     div.addEventListener('click', () => {
       const tasks = dayTasks[dayDate] || [];
       if (tasks.length === 0) {
@@ -134,6 +133,16 @@ function showRandomQuote() {
 
 newQuoteBtn.addEventListener('click', showRandomQuote);
 showRandomQuote();
+
+// --- Theme switching ---
+const themeBtn = document.getElementById('themeBtn');
+let themes = ['light', 'dark', 'green'];
+let currentTheme = 0;
+
+themeBtn.addEventListener('click', () => {
+  currentTheme = (currentTheme + 1) % themes.length;
+  document.body.className = themes[currentTheme];
+});
 
 // --- Initial render ---
 renderCalendar();
