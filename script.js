@@ -123,3 +123,33 @@ function completeQuest() {
   checkLevelUp();
   render();
 }
+
+// =========================
+// LIGHT / DARK MODE TOGGLE
+// =========================
+const toggleThemeBtn = document.getElementById("toggleTheme");
+
+// Set default theme
+document.body.dataset.theme = "dark";
+
+toggleThemeBtn.addEventListener("click", () => {
+  const isDark = document.body.dataset.theme === "dark";
+  
+  if (isDark) {
+    document.body.dataset.theme = "light";
+    document.documentElement.style.setProperty("--bg-color", "#f9fafb");
+    document.documentElement.style.setProperty("--bg-gradient", "linear-gradient(180deg, #ffffff, #e0e0e0)");
+    document.documentElement.style.setProperty("--text-color", "#111827");
+    document.documentElement.style.setProperty("--card-bg", "#ffffff");
+    document.documentElement.style.setProperty("--habit-bg", "#e5e7eb");
+    document.documentElement.style.setProperty("--habit-done-bg", "#a7f3d0");
+  } else {
+    document.body.dataset.theme = "dark";
+    document.documentElement.style.setProperty("--bg-color", "#1f2933");
+    document.documentElement.style.setProperty("--bg-gradient", "linear-gradient(180deg, #1f2933, #111827)");
+    document.documentElement.style.setProperty("--text-color", "#f9fafb");
+    document.documentElement.style.setProperty("--card-bg", "#1f2937");
+    document.documentElement.style.setProperty("--habit-bg", "#374151");
+    document.documentElement.style.setProperty("--habit-done-bg", "#065f46");
+  }
+});
