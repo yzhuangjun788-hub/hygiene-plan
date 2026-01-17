@@ -1,9 +1,10 @@
-// Simple storage
+// --- Storage for completed days and badges ---
 let completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
 let earnedBadges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
 
-// Checklist logic
+// --- Checklist logic ---
 const checklist = document.getElementById('checklist');
+
 checklist.addEventListener('change', () => {
   const allDone = Array.from(checklist.querySelectorAll('input')).every(cb => cb.checked);
   if (allDone) {
@@ -18,7 +19,7 @@ checklist.addEventListener('change', () => {
   }
 });
 
-// Calendar logic
+// --- Calendar rendering ---
 function renderCalendar() {
   const calendar = document.getElementById('calendar');
   calendar.innerHTML = '';
@@ -37,7 +38,7 @@ function renderCalendar() {
   }
 }
 
-// Badges logic
+// --- Badges logic ---
 const badgeList = [
   { id: 1, name: 'First Completion', requirement: 1 },
   { id: 2, name: '7-Day Streak', requirement: 7 },
@@ -65,34 +66,30 @@ function renderBadges() {
   });
 }
 
-// Initial render
-renderCalendar();
-renderBadges();
-
-// Generate new hygiene plan button
+// --- Generate new hygiene plan ---
 const generateBtn = document.getElementById('generatePlanBtn');
 generateBtn.addEventListener('click', () => {
-  // Ask some questions
   const wakeUp = prompt("What time do you usually wake up? (e.g., 7:00)");
   const sleep = prompt("What time do you usually go to sleep? (e.g., 23:00)");
   const exercise = prompt("Do you exercise daily? (yes/no)");
   const workFromHome = prompt("Do you work from home? (yes/no)");
 
-  // Generate a new checklist based on answers
   const newTasks = ["Brush teeth", "Wash face"];
-
   if (exercise.toLowerCase() === 'yes') newTasks.push("Shower after exercise");
   if (workFromHome.toLowerCase() === 'no') newTasks.push("Change clothes for work");
   newTasks.push("Skincare");
 
-  // Update checklist in HTML
-  const checklistUL = document.getElementById('checklist');
-  checklistUL.innerHTML = ''; // clear old tasks
+  // Update checklist HTML
+  checklist.innerHTML = '';
   newTasks.forEach(task => {
     const li = document.createElement('li');
     li.innerHTML = `<input type="checkbox" data-task="${task}"> ${task}`;
-    checklistUL.appendChild(li);
+    checklist.appendChild(li);
   });
 
   alert("Your new daily hygiene plan has been generated!");
 });
+
+// --- Initial render ---
+renderCalendar();
+renderBadges();
