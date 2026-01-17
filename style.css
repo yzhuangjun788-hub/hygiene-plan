@@ -12,7 +12,15 @@ h1, h2 {
   margin: 0;
 }
 
-/* Grid layout */
+/* Theme button container top-center */
+.theme-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+/* Grid layout 2x2 */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -21,7 +29,7 @@ h1, h2 {
   padding: 20px;
 }
 
-/* Cards styling */
+/* Card styling */
 .card {
   background-color: white;
   padding: 15px;
@@ -40,7 +48,7 @@ h1, h2 {
   margin-bottom: 10px;
 }
 
-/* Checklist */
+/* Checklist styling */
 ul {
   list-style: none;
   padding-left: 0;
@@ -50,7 +58,7 @@ li {
   margin-bottom: 10px;
 }
 
-/* Calendar */
+/* Calendar styling */
 #calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -81,7 +89,7 @@ li {
   transition: all 0.3s ease;
 }
 
-/* Badges */
+/* Badges styling */
 #badges {
   display: flex;
   gap: 10px;
@@ -115,16 +123,12 @@ li {
 
 /* Theme button */
 .theme-btn {
-  position: fixed;
-  top: 15px;
-  right: 15px;
   background-color: #444;
   color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
-  z-index: 1000;
   font-size: 0.9rem;
   transition: all 0.3s ease;
 }
