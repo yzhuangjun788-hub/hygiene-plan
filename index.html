@@ -1,106 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>CleanCode 🧼</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
-<body data-theme="dark">
+<body>
 
 <header>
   <h1>CleanCode 🧼</h1>
-  <nav>
-    <button onclick="switchTab('today')">Today</button>
-    <button onclick="switchTab('plan')">My Plan</button>
-    <button onclick="switchTab('progress')">Progress</button>
-    <button onclick="switchTab('community')">Community</button>
-    <button onclick="switchTab('games')">Games</button>
-
-    <select onchange="setTheme(this.value)">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="pastel">Pastel</option>
-    </select>
-  </nav>
+  <p id="levelText"></p>
 </header>
 
 <main>
 
-<!-- TODAY -->
-<section id="today" class="tab active">
-  <div class="card bubble">
-    <h2>Today’s Motivation ✨</h2>
-    <p id="dailyFeed"></p>
-  </div>
+<!-- TODAY PANEL -->
+<section class="panel">
+  <h2>Today</h2>
 
-  <div class="card">
-    <h2>Today’s Hygiene 🧼</h2>
-    <div id="habitList"></div>
-    <button onclick="saveDay()">Save Today</button>
+  <div class="xp-bar">
+    <div id="xpFill"></div>
   </div>
+  <p id="xpText"></p>
+
+  <div id="habitList"></div>
+
+  <textarea id="reflection" placeholder="Quick reflection (optional)"></textarea>
+
+  <button class="primary" onclick="completeDay()">Complete Day</button>
 </section>
 
 <!-- PLAN -->
-<section id="plan" class="tab">
-  <div class="card flower">
-    <h2>Your Hygiene Questionnaire</h2>
+<section class="panel">
+  <h2>Your Hygiene Plan</h2>
+  <div id="planList"></div>
 
-    <label>Activity level</label>
-    <select id="q_activity">
-      <option value="low">Low</option>
-      <option value="medium">Medium</option>
-      <option value="high">High</option>
-    </select>
-
-    <label>Sweat easily?</label>
-    <select id="q_sweat">
-      <option value="no">No</option>
-      <option value="yes">Yes</option>
-    </select>
-
-    <label>Humor preference</label>
-    <select id="q_humor">
-      <option value="soft">Gentle</option>
-      <option value="medium">Playful</option>
-      <option value="savage">Savage</option>
-    </select>
-
-    <button onclick="generatePlan()">Generate My Plan</button>
-  </div>
-
-  <div class="card">
-    <h2>Your Personalized Plan 💻</h2>
-    <ul id="planOutput"></ul>
-  </div>
+  <input id="customGoal" placeholder="Add custom goal">
+  <button onclick="addCustomGoal()">Add Goal</button>
 </section>
 
-<!-- PROGRESS -->
-<section id="progress" class="tab">
-  <div class="card">
-    <h2>🔥 Streak: <span id="streak">0</span></h2>
-    <div id="calendar"></div>
-  </div>
+<!-- CALENDAR -->
+<section class="panel">
+  <h2>🔥 Streak Calendar</h2>
+  <div id="calendar"></div>
 </section>
 
-<!-- COMMUNITY -->
-<section id="community" class="tab">
-  <div class="card">
-    <h2>Community Feed 👥</h2>
-    <input id="postInput" placeholder="Share something..." />
-    <button onclick="addPost()">Post</button>
-    <div id="feed"></div>
-  </div>
-</section>
-
-<!-- GAMES -->
-<section id="games" class="tab">
-  <div class="card">
-    <h2>Daily Challenge 🎮</h2>
-    <p id="challenge"></p>
-    <button onclick="completeChallenge()">Complete</button>
-    <p>XP: <span id="xp">0</span></p>
-  </div>
+<!-- GAME -->
+<section class="panel">
+  <h2>Daily Quest 🎯</h2>
+  <p id="dailyQuest"></p>
+  <button onclick="completeQuest()">Claim Quest XP</button>
 </section>
 
 </main>
