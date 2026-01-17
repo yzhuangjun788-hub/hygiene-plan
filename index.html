@@ -3,64 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <title>CleanCode 🧼</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="light">
+
+<body data-theme="dark">
 
 <header>
   <h1>CleanCode 🧼</h1>
-  <p>Small habits. Real momentum.</p>
+  <nav>
+    <button onclick="switchTab('today')">Today</button>
+    <button onclick="switchTab('plan')">My Plan</button>
+    <button onclick="switchTab('progress')">Progress</button>
+    <button onclick="switchTab('community')">Community</button>
+    <button onclick="switchTab('games')">Games</button>
 
-  <select id="themeSwitcher" onchange="setTheme(this.value)">
-    <option value="light">Light</option>
-    <option value="dark">Dark</option>
-    <option value="pastel">Pastel</option>
-  </select>
+    <select onchange="setTheme(this.value)">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="pastel">Pastel</option>
+    </select>
+  </nav>
 </header>
 
 <main>
 
-  <!-- DAILY FEED -->
-  <section class="card">
-    <h2>Daily Motivation</h2>
+<!-- TODAY -->
+<section id="today" class="tab active">
+  <div class="card bubble">
+    <h2>Today’s Motivation ✨</h2>
     <p id="dailyFeed"></p>
-  </section>
+  </div>
 
-  <!-- HABIT TRACKER -->
-  <section class="card">
-    <h2>Today’s Habits</h2>
+  <div class="card">
+    <h2>Today’s Hygiene 🧼</h2>
+    <div id="habitList"></div>
+    <button onclick="saveDay()">Save Today</button>
+  </div>
+</section>
 
-    <div class="habits">
-      <label><input type="checkbox" data-habit="shower"> Shower</label>
-      <label><input type="checkbox" data-habit="teeth"> Brush Teeth</label>
-      <label><input type="checkbox" data-habit="deo"> Deodorant</label>
-      <label><input type="checkbox" data-habit="clothes"> Clean Clothes</label>
-    </div>
+<!-- PLAN -->
+<section id="plan" class="tab">
+  <div class="card flower">
+    <h2>Your Hygiene Questionnaire</h2>
 
-    <textarea id="reflection" placeholder="Optional: what helped or got in the way today?"></textarea>
+    <label>Activity level</label>
+    <select id="q_activity">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
 
-    <button onclick="saveDay()">Save Day</button>
+    <label>Sweat easily?</label>
+    <select id="q_sweat">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
 
-    <div class="progress">
-      <div id="progressRing"></div>
-      <p id="completionText"></p>
-    </div>
-  </section>
+    <label>Humor preference</label>
+    <select id="q_humor">
+      <option value="soft">Gentle</option>
+      <option value="medium">Playful</option>
+      <option value="savage">Savage</option>
+    </select>
 
-  <!-- CALENDAR -->
-  <section class="card">
-    <h2>Monthly Calendar</h2>
+    <button onclick="generatePlan()">Generate My Plan</button>
+  </div>
+
+  <div class="card">
+    <h2>Your Personalized Plan 💻</h2>
+    <ul id="planOutput"></ul>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section id="progress" class="tab">
+  <div class="card">
+    <h2>🔥 Streak: <span id="streak">0</span></h2>
     <div id="calendar"></div>
-  </section>
+  </div>
+</section>
 
-  <!-- STREAK & BADGES -->
-  <section class="card">
-    <h2>Achievements</h2>
-    <button onclick="toggleBadges()">View All Badges</button>
-    <p>🔥 Current streak: <span id="streak">0</span></p>
+<!-- COMMUNITY -->
+<section id="community" class="tab">
+  <div class="card">
+    <h2>Community Feed 👥</h2>
+    <input id="postInput" placeholder="Share something..." />
+    <button onclick="addPost()">Post</button>
+    <div id="feed"></div>
+  </div>
+</section>
 
-    <div id="badgeBoard" class="hidden"></div>
-  </section>
+<!-- GAMES -->
+<section id="games" class="tab">
+  <div class="card">
+    <h2>Daily Challenge 🎮</h2>
+    <p id="challenge"></p>
+    <button onclick="completeChallenge()">Complete</button>
+    <p>XP: <span id="xp">0</span></p>
+  </div>
+</section>
 
 </main>
 
