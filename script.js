@@ -1,7 +1,21 @@
-/* ---------- XP SYSTEM ---------- */
+/* ---------- DATE FIX (LOCAL TIME) ---------- */
+function getToday() {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+/* ---------- STORAGE ---------- */
+let completedDays = JSON.parse(localStorage.getItem("completedDays") || "[]");
+let dayTasks = JSON.parse(localStorage.getItem("dayTasks") || "{}");
+let earnedBadges = JSON.parse(localStorage.getItem("earnedBadges") || "[]");
+
 let xp = parseInt(localStorage.getItem("xp") || "0");
 let rewardedDays = JSON.parse(localStorage.getItem("rewardedDays") || "[]");
 
+/* ---------- XP UI ---------- */
 const xpText = document.getElementById("xp");
 const levelText = document.getElementById("level");
 const xpFill = document.getElementById("xp-fill");
@@ -15,16 +29,11 @@ function updateXPUI() {
   xpFill.style.width = (currentXP / 50) * 100 + "%";
 }
 
-/* ---------- STORAGE ---------- */
-let completedDays = JSON.parse(localStorage.getItem("completedDays") || "[]");
-let dayTasks = JSON.parse(localStorage.getItem("dayTasks") || "{}");
-let earnedBadges = JSON.parse(localStorage.getItem("earnedBadges") || "[]");
-
 /* ---------- CHECKLIST ---------- */
 const checklist = document.getElementById("checklist");
 
 checklist.addEventListener("change", () => {
-  const today = new Date().toISOString().split("T")[0];
+  const today = getToday();
 
   const tasks = [...checklist.querySelectorAll("input")].map(cb => ({
     name: cb.dataset.task,
@@ -34,10 +43,21 @@ checklist.addEventListener("change", () => {
   dayTasks[today] = tasks;
   localStorage.setItem("dayTasks", JSON.stringify(dayTasks));
 
-  if (tasks.every(t => t.done) && !completedDays.includes(today)) {
-    completedDays.push(today);
-    localStorage.setItem("completedDays", JSON.stringify(completedDays));
-    checkBadges();
+  if (tasks.every(t => t.done)) {
+
+    if (!completedDays.includes(today)) {
+      completedDays.push(today);
+      localStorage.setItem("completedDays", JSON.stringify(completedDays));
+      checkBadges();
+    }
+
+    if (!rewardedDays.includes(today)) {
+      xp += 10;
+      rewardedDays.push(today);
+      localStorage.setItem("xp", xp);
+      localStorage.setItem("rewardedDays", JSON.stringify(rewardedDays));
+      updateXPUI();
+    }
   }
 
   renderCalendar();
@@ -50,6 +70,7 @@ const dayDetails = document.getElementById("dayDetails");
 
 function renderCalendar() {
   calendar.innerHTML = "";
+
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth();
@@ -62,7 +83,7 @@ function renderCalendar() {
   }
 
   for (let d = 1; d <= daysInMonth; d++) {
-    const dateStr = new Date(year, month, d).toISOString().split("T")[0];
+    const dateStr = `${year}-${String(month + 1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
     const div = document.createElement("div");
     div.textContent = d;
     div.className = "calendar-day";
@@ -129,10 +150,9 @@ document.getElementById("newQuoteBtn").onclick = () => {
 };
 soupText.textContent = soups[0];
 
-/* ---------- THEME SWITCH ---------- */
+/* ---------- THEME ---------- */
 const themes = ["light", "dark", "green"];
 let themeIndex = themes.indexOf(localStorage.getItem("theme")) || 0;
-
 document.body.className = themes[themeIndex];
 
 document.getElementById("themeBtn").onclick = () => {
@@ -142,43 +162,6 @@ document.getElementById("themeBtn").onclick = () => {
 };
 
 /* ---------- INIT ---------- */
+updateXPUI();
 renderCalendar();
 renderBadges();
-/* ---------- MODAL LOGIC ---------- */
-const modal = document.getElementById("planModal");
-const openModalBtn = document.getElementById("openModalBtn");
-const closeModalBtn = document.getElementById("closeModalBtn");
-const confirmBtn = document.getElementById("generatePlanConfirm");
-
-openModalBtn.onclick = () => {
-  modal.classList.remove("hidden");
-};
-
-closeModalBtn.onclick = () => {
-  modal.classList.add("hidden");
-};
-
-confirmBtn.onclick = () => {
-  const active = document.getElementById("qActive").value;
-  const exercise = document.getElementById("qExercise").value;
-  const sweat = document.getElementById("qSweat").value;
-  const outdoor = document.getElementById("qOutdoor").value;
-  const makeup = document.getElementById("qMakeup").value;
-
-  const tasks = ["Brush teeth", "Wash hands"];
-
-  if (exercise === "yes") tasks.push("Shower after exercise");
-  if (sweat === "yes") tasks.push("Extra shower");
-  if (outdoor === "yes") tasks.push("Clean face after outdoor");
-  if (makeup === "yes") tasks.push("Remove makeup");
-  tasks.push("Skincare");
-
-  checklist.innerHTML = "";
-  tasks.forEach(task => {
-    const li = document.createElement("li");
-    li.innerHTML = `<input type="checkbox" data-task="${task}"> ${task}`;
-    checklist.appendChild(li);
-  });
-
-  modal.classList.add("hidden");
-};
