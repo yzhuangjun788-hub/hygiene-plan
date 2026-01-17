@@ -1,45 +1,55 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #eef2f5;
+  font-family: "Arial Rounded MT Bold", Arial, sans-serif;
+  background: #fff6fb;
+  margin: 0;
   padding: 20px;
-  max-width: 600px;
-  margin: auto;
+  text-align: center;
 }
 
 h1 {
-  text-align: center;
+  margin-bottom: 20px;
 }
 
-.subtitle {
-  text-align: center;
-  color: #555;
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: auto;
 }
 
 .card {
   background: white;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  min-height: 220px;
 }
 
-label {
-  display: block;
-  margin-top: 10px;
+.card h2 {
+  margin-top: 0;
 }
 
-select, button {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-}
-
-button {
-  margin-top: 15px;
-  font-size: 15px;
+.clickable {
   cursor: pointer;
 }
 
+.clickable:hover {
+  transform: scale(1.03);
+  transition: 0.2s;
+}
+
 ul {
-  padding-left: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  text-align: left;
+  margin: 8px 0;
+}
+
+.hint {
+  font-size: 12px;
+  color: gray;
 }
