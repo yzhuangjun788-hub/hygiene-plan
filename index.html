@@ -8,35 +8,34 @@
 </head>
 <body>
   <div class="container">
-    <h1>Personal Hygiene Tracker</h1>
 
-    <!-- Checklist -->
+    <!-- Daily Checklist -->
     <div class="card">
-  <h2>
-    Daily Checklist
-    <button id="generatePlanBtn" class="generate-btn">🛠 Generate Plan</button>
-  </h2>
-  <ul id="checklist">
-    <li><input type="checkbox" data-task="Brush teeth"> Brush teeth</li>
-    <li><input type="checkbox" data-task="Shower"> Shower</li>
-    <li><input type="checkbox" data-task="Wash hands"> Wash hands</li>
-    <li><input type="checkbox" data-task="Comb hair"> Comb hair</li>
-    <li><input type="checkbox" data-task="Skincare"> Skincare</li>
-  </ul>
-</div>
+      <div class="card-header">
+        <h2>Daily Checklist</h2>
+        <button id="generatePlanBtn" class="generate-btn">🛠 Generate Plan</button>
+      </div>
+      <ul id="checklist">
+        <li><input type="checkbox" data-task="Brush teeth"> Brush teeth</li>
+        <li><input type="checkbox" data-task="Shower"> Shower</li>
+        <li><input type="checkbox" data-task="Wash hands"> Wash hands</li>
+        <li><input type="checkbox" data-task="Comb hair"> Comb hair</li>
+        <li><input type="checkbox" data-task="Skincare"> Skincare</li>
+      </ul>
+    </div>
 
-
-    <!-- Calendar -->
+    <!-- Streak Calendar -->
     <div class="card">
       <h2>Streak Calendar</h2>
       <div id="calendar"></div>
     </div>
 
-    <!-- Badges -->
+    <!-- Achievement Badges -->
     <div class="card">
       <h2>Achievement Badges</h2>
       <div id="badges"></div>
     </div>
+
   </div>
 
   <script src="script.js"></script>
