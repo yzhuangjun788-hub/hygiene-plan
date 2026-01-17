@@ -11,14 +11,13 @@ h1, h2 {
   color: #333;
 }
 
-/* Container is horizontal */
-.container {
-  display: flex;
+/* Grid layout: 2x2 */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
   gap: 20px;
   padding: 20px;
-  overflow-x: auto;
-  height: 100vh;
-  box-sizing: border-box;
 }
 
 /* Cards styling */
@@ -27,8 +26,6 @@ h1, h2 {
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
-  min-width: 300px;
-  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
 }
@@ -86,7 +83,7 @@ li {
   text-align: center;
 }
 
-/* Generate Plan button */
+/* Generate Plan / Chicken Soup button */
 .generate-btn {
   background-color: #007BFF;
   color: white;
@@ -95,22 +92,15 @@ li {
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
+  margin-top: 10px;
 }
 
 .generate-btn:hover {
   background-color: #0056b3;
 }
 
-/* Optional: horizontal scrollbar styling */
-.container::-webkit-scrollbar {
-  height: 8px;
-}
-
-.container::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-.container::-webkit-scrollbar-track {
-  background: #f0f4f8;
+/* Chicken soup text */
+.chicken-soup {
+  font-style: italic;
+  margin-top: 10px;
 }
