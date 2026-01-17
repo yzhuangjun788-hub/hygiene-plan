@@ -185,3 +185,41 @@ function saveState(){
   localStorage.setItem("state",JSON.stringify(state));
   renderBadges();
 }
+
+// Elements
+const planSettings = document.getElementById("planSettings");
+const popup = document.getElementById("popup");
+const closePopup = document.getElementById("closePopup");
+const generatePlanBtn = document.getElementById("generatePlan");
+
+// Open popup when ⚙️ button is clicked
+planSettings.addEventListener("click", () => {
+  popup.classList.remove("hidden");
+});
+
+// Close popup when Cancel is clicked
+closePopup.addEventListener("click", () => {
+  popup.classList.add("hidden");
+});
+
+// Generate personalized plan when button clicked
+generatePlanBtn.addEventListener("click", () => {
+  const activity = document.getElementById("activity").value;
+  const sweat = document.getElementById("sweat").value;
+  const skincare = document.getElementById("skincare").value;
+
+  let newPlan = [
+    {name: "Brush Teeth", done:false},
+    {name: "Shower", done:false},
+    {name: "Deodorant", done:false}
+  ];
+
+  if(activity === "high" || sweat === "yes") newPlan.push({name:"Extra Shower", done:false});
+  if(skincare === "yes") newPlan.push({name:"Face Care", done:false});
+
+  state.today = newPlan;
+  popup.classList.add("hidden");  // hide popup
+  saveState();
+  renderPlan();
+  renderCalendar();
+});
