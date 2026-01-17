@@ -1,70 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CleanCode 🧼</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Daily Hygiene Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h1>CleanCode 🧼</h1>
-  <p class="subtitle">Refactor your hygiene habits.</p>
+<h1>🌸 My Hygiene Dashboard</h1>
 
-  <!-- SETTINGS -->
+<div class="dashboard">
+
+  <!-- Today's Plan -->
   <div class="card">
-    <h2>Your Lifestyle</h2>
-
-    <label>Activity level</label>
-    <select id="activity">
-      <option value="low">Low</option>
-      <option value="medium">Medium</option>
-      <option value="high">High</option>
-    </select>
-
-    <label>Sweat easily?</label>
-    <select id="sweat">
-      <option value="no">No</option>
-      <option value="yes">Yes</option>
-    </select>
-
-    <label>How busy are you?</label>
-    <select id="busy">
-      <option value="chill">Not busy</option>
-      <option value="normal">Normal</option>
-      <option value="chaos">Very busy</option>
-    </select>
-
-    <label>
-      <input type="checkbox" id="savage">
-      Savage mode 😈
-    </label>
-
-    <button onclick="generatePlan()">Generate Hygiene Plan</button>
+    <h2>🧼 Today’s Hygiene Plan</h2>
+    <ul id="checklist"></ul>
   </div>
 
-  <!-- PLAN OUTPUT -->
-  <div class="card" id="plan"></div>
-
-  <!-- TRACKER -->
-  <div class="card">
-    <h2>Today’s Hygiene Tracker</h2>
-
-    <label><input type="checkbox" id="shower"> Showered</label>
-    <label><input type="checkbox" id="teeth"> Brushed teeth (2x)</label>
-    <label><input type="checkbox" id="deo"> Used deodorant</label>
-    <label><input type="checkbox" id="clothes"> Changed clothes</label>
-
-    <button onclick="saveToday()">Save Today</button>
+  <!-- Streak Calendar -->
+  <div class="card clickable" id="calendarCard">
+    <h2>🔥 Streak Calendar</h2>
+    <div id="calendar"></div>
+    <p class="hint">Click to see yearly view</p>
   </div>
 
-  <!-- STREAK & ACHIEVEMENTS -->
+  <!-- Chicken Soup -->
   <div class="card">
-    <h2>Progress</h2>
-    <p>🔥 Current streak: <span id="streak">0</span> days</p>
-    <p>🏆 Achievements:</p>
-    <ul id="achievements"></ul>
+    <h2>🐥 Daily Encouragement</h2>
+    <p id="quote"></p>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Badges -->
+  <div class="card clickable" id="badgeCard">
+    <h2>🏅 Achievement Badges</h2>
+    <div id="badges">✨ Beginner</div>
+    <p class="hint">Click to view all badges</p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
