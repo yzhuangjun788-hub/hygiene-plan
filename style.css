@@ -1,16 +1,18 @@
+/* Basic page styling */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f4f8;
   margin: 0;
   padding: 0;
+  background-color: #f0f4f8;
+  color: #333;
+  transition: all 0.3s ease;
 }
 
 h1, h2 {
   margin: 0;
-  color: #333;
 }
 
-/* 2x2 grid layout */
+/* Grid layout */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -19,7 +21,7 @@ h1, h2 {
   padding: 20px;
 }
 
-/* Card styling */
+/* Cards styling */
 .card {
   background-color: white;
   padding: 15px;
@@ -27,6 +29,7 @@ h1, h2 {
   box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease;
 }
 
 /* Card header for checklist button */
@@ -37,7 +40,7 @@ h1, h2 {
   margin-bottom: 10px;
 }
 
-/* Checklist styling */
+/* Checklist */
 ul {
   list-style: none;
   padding-left: 0;
@@ -47,7 +50,7 @@ li {
   margin-bottom: 10px;
 }
 
-/* Calendar styling */
+/* Calendar */
 #calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -60,6 +63,7 @@ li {
   border-radius: 5px;
   background-color: #ddd;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .calendar-day.completed {
@@ -74,9 +78,10 @@ li {
   background-color: #eef;
   border-radius: 5px;
   min-height: 50px;
+  transition: all 0.3s ease;
 }
 
-/* Badges styling */
+/* Badges */
 #badges {
   display: flex;
   gap: 10px;
@@ -92,7 +97,7 @@ li {
   text-align: center;
 }
 
-/* Generate buttons */
+/* Buttons */
 .generate-btn {
   background-color: #007BFF;
   color: white;
@@ -108,8 +113,68 @@ li {
   background-color: #0056b3;
 }
 
-/* Chicken soup text */
+/* Theme button */
+.theme-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+  background-color: #222;
+}
+
+/* Chicken soup */
 .chicken-soup {
   font-style: italic;
   margin-top: 10px;
+}
+
+/* --- Theme Styles --- */
+body.light {
+  background-color: #f0f4f8;
+  color: #333;
+}
+
+body.light .card {
+  background-color: white;
+}
+
+body.light .day-details {
+  background-color: #eef;
+}
+
+body.dark {
+  background-color: #1e1e1e;
+  color: #ddd;
+}
+
+body.dark .card {
+  background-color: #2a2a2a;
+}
+
+body.dark .day-details {
+  background-color: #333;
+}
+
+body.green {
+  background-color: #e6f4ea;
+  color: #1a3e1a;
+}
+
+body.green .card {
+  background-color: #d4f0d4;
+}
+
+body.green .day-details {
+  background-color: #bce4bc;
 }
