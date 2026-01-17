@@ -90,6 +90,29 @@ generateBtn.addEventListener('click', () => {
   alert("Your new daily hygiene plan has been generated!");
 });
 
+// --- Chicken Soup Card ---
+const chickenSoupP = document.getElementById('chickenSoup');
+const newQuoteBtn = document.getElementById('newQuoteBtn');
+
+const chickenSoupQuotes = [
+  "Every day is a fresh start. 🌞",
+  "Believe in yourself and all that you are.",
+  "Small steps every day lead to big results.",
+  "Take care of your body, it's the only place you have to live.",
+  "Happiness is homemade.",
+  "Consistency is the key to success.",
+];
+
+function showRandomQuote() {
+  const quote = chickenSoupQuotes[Math.floor(Math.random() * chickenSoupQuotes.length)];
+  chickenSoupP.textContent = quote;
+}
+
+newQuoteBtn.addEventListener('click', showRandomQuote);
+
+// Show a quote on load
+showRandomQuote();
+
 // --- Initial render ---
 renderCalendar();
 renderBadges();
