@@ -1,3 +1,35 @@
+/* =========================
+   Theme Variables
+========================= */
+:root {
+  --bg-color: #1f2933;
+  --bg-gradient: linear-gradient(180deg, #1f2933, #111827);
+  --text-color: #f9fafb;
+  --card-bg: #1f2937;
+  --habit-bg: #374151;
+  --habit-done-bg: #065f46;
+}
+
+/* Apply variables */
+body {
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  font-family: system-ui;
+  margin: 0;
+}
+
+.panel, .card {
+  background: var(--card-bg);
+}
+
+.habit {
+  background: var(--habit-bg);
+}
+
+.habit.done {
+  background: var(--habit-done-bg);
+}
+
 body {
   background: linear-gradient(180deg, #1f2933, #111827);
   color: #f9fafb;
