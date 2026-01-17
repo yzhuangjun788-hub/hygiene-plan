@@ -1,65 +1,74 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CleanCode 🧼</title>
+  <title>Horizontal Hygiene Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-<!-- Light / Dark Mode Toggle -->
-<div id="modeToggle" style="margin: 12px;">
-  🌞 / 🌙
-  <button id="toggleTheme">Toggle Light/Dark Mode</button>
+
+<div class="dashboard">
+
+  <!-- Today's Hygiene Plan -->
+  <div class="card" id="planCard">
+    <h2>
+      🧼 Today's Hygiene Plan
+      <button id="planSettings" title="Customize Plan">⚙️</button>
+    </h2>
+    <ul id="planList"></ul>
+  </div>
+
+  <!-- Streak Calendar -->
+  <div class="card" id="calendarCard">
+    <h2>🔥 Streak Calendar</h2>
+    <table id="calendar"></table>
+  </div>
+
+  <!-- Badges Board -->
+  <div class="card" id="badgeCard">
+    <h2>🏅 Badges Board</h2>
+    <div id="badges"></div>
+  </div>
+
 </div>
 
-<header>
-  <h1>CleanCode 🧼</h1>
-  <p id="levelText"></p>
-</header>
+<!-- Popup for Personal Questions -->
+<div id="popup" class="popup hidden">
+  <div class="popupContent">
+    <h3>Personal Hygiene Questions</h3>
 
-<main>
+    <label>How active are you?</label>
+    <select id="activity">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
 
-<!-- TODAY PANEL -->
-<section class="panel">
-  <h2>Today</h2>
+    <label>Do you sweat a lot?</label>
+    <select id="sweat">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
 
-  <div class="xp-bar">
-    <div id="xpFill"></div>
+    <label>Do you want extra skincare?</label>
+    <select id="skincare">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <button id="generatePlan">Generate Plan</button>
+    <button id="closePopup">Cancel</button>
   </div>
-  <p id="xpText"></p>
+</div>
 
-  <div id="habitList"></div>
-
-  <textarea id="reflection" placeholder="Quick reflection (optional)"></textarea>
-
-  <button class="primary" onclick="completeDay()">Complete Day</button>
-</section>
-
-<!-- PLAN -->
-<section class="panel">
-  <h2>Your Hygiene Plan</h2>
-  <div id="planList"></div>
-
-  <input id="customGoal" placeholder="Add custom goal">
-  <button onclick="addCustomGoal()">Add Goal</button>
-</section>
-
-<!-- CALENDAR -->
-<section class="panel">
-  <h2>🔥 Streak Calendar</h2>
-  <div id="calendar"></div>
-</section>
-
-<!-- GAME -->
-<section class="panel">
-  <h2>Daily Quest 🎯</h2>
-  <p id="dailyQuest"></p>
-  <button onclick="completeQuest()">Claim Quest XP</button>
-</section>
-
-</main>
+<!-- Popup for Day Details -->
+<div id="dayPopup" class="popup hidden">
+  <div class="popupContent">
+    <h3 id="dayTitle">Tasks for </h3>
+    <ul id="dayTasks"></ul>
+    <button id="closeDayPopup">Close</button>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
