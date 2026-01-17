@@ -161,10 +161,22 @@ document.getElementById("themeBtn").onclick = () => {
   localStorage.setItem("theme", themes[themeIndex]);
 };
 
+/* ---------- AUTO OPEN PLAN MODAL ON NEW DAY ---------- */
+function checkNewDayAndPromptPlan() {
+  const today = getToday();
+
+  // If no tasks exist for today, open generate plan modal
+  if (!dayTasks[today]) {
+    modal.classList.remove("hidden");
+  }
+}
+
 /* ---------- INIT ---------- */
 updateXPUI();
 renderCalendar();
 renderBadges();
+checkNewDayAndPromptPlan();
+
 
 /* ---------- GENERATE PLAN MODAL (RESTORED) ---------- */
 const modal = document.getElementById("planModal");
